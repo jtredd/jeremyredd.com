@@ -103,12 +103,6 @@ services:
     links:
       - postgres:postgres
       - redis:redis
-#     - VIRTUAL_HOST=jeremyredd.com
-#     - VIRTUAL_PORT=5000
-#     - LETSECRYPT_HOST=jeremyredd.com
-#     - LETSENCRYPT_EMAIL=contact@jeremyredd.com
-#     - LETSENCRYPT_TEST=false
-#     - FLASK_DEBUG=0
     env_file:
       - ./.env
     working_dir: /srv/web/app
