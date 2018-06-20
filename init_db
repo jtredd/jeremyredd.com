@@ -1,0 +1,1 @@
+echo 'CREATE DATABASE my_db;' |psql postgresql://postgres:@localhost:5432/postgres

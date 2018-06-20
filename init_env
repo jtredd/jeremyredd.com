@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+
+PROJECT_STACK=($(dirname **/Dockerfile))
+
+function set_env () {
+for p in ${PROJECT_STACK[@]}; do cp ./${p}.env "${p}"/test.env; done
+}
+
+function set_sec () {
+[ "$SECURITY" = "" ] && SECURITY="32characterpasswordshouldsuffice" || SECURITY_SET=1 && echo "SECURITY SET" || echo "LOL"
+}
+
+function init_db () {
+    echo 'CREATE DATABASE my_db;' |psql postgresql://postgres:@localhost:5432/postgres
+}
+#   DOMAIN=example.com
+#   DJANGO_HOST=demo
+#   DJANGO_DEBUG=true
+#   EMAIL_ADDRESS=contact@jeremyredd.com
+print "Run 'set_env' and 'set_sec'"
+print "Run 'init_db' if you need to"
