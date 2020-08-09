@@ -1,12 +1,35 @@
 #!/usr/bin/env zsh
 
-PROJECT_STACK=($(dirname **/Dockerfile))
+#PROJECT_STACK=($(dirname **/Dockerfile))
+PROJECT_STACK=($(for fd in *; do if [ -d $fd ]; then if [ -f $fd/Dockerfile ]; then dirname $fd/Dockerfile; fi; fi; done))
+
+PROJECT_FILES=($(printf "%s.env \n" "${gr[@]}"))
+LEDBPASS=32characterpasswordshouldsuffice
+LEDOMAIN=localhost
+LEEMAIL=contact@jeremyredd.com
+
+# set domain and email
+#for file in *.env; do sed -e s'/$LEEMAIL/contact@jeremyredd.com/g' -e 's/$LEDOMAIN/localhost/g' $file > $(printf `echo $file|cut -d \. -f 1,3`/test.env) ; done
+
+#function set_env () {
+#for p in ${PROJECT_STACK[@]}; do cp ./${p}.env "${p}"/test.env; done
+#}
 
 function set_env () {
-for p in ${PROJECT_STACK[@]}; do cp ./${p}.env "${p}"/test.env; done
+for p in ${PROJECT_STACK[@]}; do cp ./${p}\.env ${p}/test\.env; done
 }
 
-function set_sec () {
+#ALLDIRS HERE 
+#for fd in {.,}*; do if [ -d $fd ]; then stat -f $fd; fi; done
+# DIRS HERE 
+# for fd in *; do if [ -d $f ]; then stat -fd $f; fi; done
+
+
+# ### meh, or just sed ? idk... use some common sense
+# for file in *.env; do sed -e s'/$LEEMAIL/contact@jeremyredd.com/g' -e 's/$LEDOMAIN/localhost/g' $file > $(printf `echo $file|cut -d \. -f 1,3`/test.env) ; done
+#function set_sec () {
+#
+ 
 [ "$SECURITY" = "" ] && SECURITY="32characterpasswordshouldsuffice" || SECURITY_SET=1 && echo "SECURITY SET" || echo "LOL"
 }
 
@@ -17,5 +40,5 @@ function init_db () {
 #   DJANGO_HOST=demo
 #   DJANGO_DEBUG=true
 #   EMAIL_ADDRESS=contact@jeremyredd.com
-print "Run 'set_env' and 'set_sec'"
-print "Run 'init_db' if you need to"
+printf "Run 'set_env' and 'set_sec'"
+printf "Run 'init_db' if you need to"
